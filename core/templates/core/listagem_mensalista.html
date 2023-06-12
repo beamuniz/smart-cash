@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+  list-mens
+{% endblock %}
+
+{% block main %}
+  Listagem rotativos<br>
+<ul class="list-group">
+    {% for i in dados %}
+    <li class="list-group-item text-dark list-group-item-dark">
+        Veiculo = {{ i.id_veiculo}}<br>
+    Tabela ={{ i.id_tabela}} <br>
+    Obs. =  {% if i.obsercacoes %} {{i.observacoes}} {% endif %}<br>
+
+    <a href="{% url 'url_atualiza_mensalista' i.id %}" class="btn btn-primary">Editar</a> &nbsp;
+    <a href="{% url 'url_exclui_mensalista' i.id %}" class="btn btn-danger">Excluir</a>
+    </li>
+
+{% endfor %}
+</ul>
+    <button onclick="window.location.href= '/'" class="btn btn-success">Voltar</button>
+{% endblock %}

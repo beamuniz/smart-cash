@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    Apresentação
+{% endblock %}
+
+{% block main %}
+
+{% block extrahead %}
+<link rel="stylesheet" href="{% static 'css/apresentacao.css' %}">
+{% endblock %}
+
+
+<body>
+    
+    <div class="header">
+        <!--Content before waves-->
+        <div class="title flex flex-column">
+            <h1>Bem vindo ao <br> <h1 class="title-strong">SmartCash</h1></h1>
+        </div>
+        <div class="inner-header flex flex-column">
+        <!--Just the logo.. Don't mind this-->
+        <img src="{% static 'symbol.png' %}" class="symbol">
+        <div class="btns">
+            <button type="button" class="btn btn-light mt-5">
+                <a href="/cadastro/">
+                    Cadastre-se
+                </a>
+            </button>
+            
+            <button type="button" class="btn btn-light mt-5">
+                    <a href="/login/">
+                        Login
+                    </a>
+            </button> 
+            </div>
+        </div>
+        
+        <!--Waves Container-->
+        <div>
+        <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+        viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+        <defs>
+        <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+        </defs>
+        <g class="parallax">
+        <use xlink:href="#gentle-wave" x="48" y="0" fill="rgba(255,255,255,0.7" />
+        <use xlink:href="#gentle-wave" x="48" y="3" fill="rgba(255,255,255,0.5)" />
+        <use xlink:href="#gentle-wave" x="48" y="5" fill="rgba(255,255,255,0.3)" />
+        <use xlink:href="#gentle-wave" x="48" y="7" fill="#fff" />
+        </g>
+        </svg>
+        </div>
+        <!--Waves end-->
+        
+        </div>
+</body>
+
+{% endblock %}

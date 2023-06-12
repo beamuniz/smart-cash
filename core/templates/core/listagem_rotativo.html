@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+  list-rot
+{% endblock %}
+
+{% block main %}
+  Listagem rotativos<br>
+<ul class="list-group">
+    {% for i in dados %}
+ <li class="list-group-item text-dark list-group-item-dark">
+        Entrada: {{ i.data_hora_entrada}}<br>
+    Saida: {% if i.data_hora_saida %} {{ i.data_hora_saida}} {% endif %} <br>
+    Veiculo: {{i.id_veiculo}}<br>
+    Valor: {% if i.total %} {{i.total}} {% endif %}<br>
+    Pago: {% if i.pago %} {{i.pago}} {% endif %}<br>
+    Obs.:  {% if i.observacoes %} {{i.observacoes}} {% endif %}<br>
+
+    <a href="{% url 'url_atualiza_rotativo' i.id %}" class="btn btn-primary">Editar</a> &nbsp;
+    <a href="{% url 'url_exclui_rotativo' i.id %}" class="btn btn-danger">Excluir</a>
+ </li>
+
+
+{% endfor %}
+</ul>
+    <button onclick="window.location.href= '/'" class="btn btn-success">Voltar</button>
+{% endblock %}

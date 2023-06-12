@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{%  load crispy_forms_tags %}
+{% block title %}
+  cad_cli
+{% endblock %}
+
+{% block extrahead %}
+  {{ form.media }}
+{% endblock %}
+
+{% block main %}
+    Formulario para cadastro <br>
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{  form | crispy }} <br>
+    <button type="submit">{{ txt_button }}</button>
+  <button onclick="window.location.href= '/'">Cancelar</button>
+  </form>
+{% endblock %}

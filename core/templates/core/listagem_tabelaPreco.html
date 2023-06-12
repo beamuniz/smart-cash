@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+  list-tab
+{% endblock %}
+
+{% block main %}
+  <h1>Listagem de Tabela<br></h1>
+<ul class="list-group">
+    {% for i in dados %}
+    <li class="list-group-item text-dark list-group-item-dark ">
+        <h3>{{i.descricao}}<br></h3>
+        <h5>Valor: R$ {{i.valor}}<br></h5>
+
+        <a href="{% url 'url_atualiza_tabelaPreco' i.id %}" class="btn btn-primary">Editar</a> &nbsp;
+        <a href="{% url 'url_exclui_tabelaPreco' i.id %}" class="btn btn-danger">Excluir</a>
+    </li>
+{% endfor %}
+</ul>
+ <button onclick="window.location.href= '/'" class="btn btn-success">Voltar</button>
+{% endblock %}
