@@ -17,6 +17,38 @@ class Registrar(generic.CreateView):
     success_url = reverse_lazy('url_principal')
     template_name = 'registration/registrar.html'
 
+def cadastro(request):
+    return render(request, 'cadastro.html')
+
+def login(request):
+    return render(request, 'login.html')
+
+def login_validation(request):
+    conta_bancaria = request.POST.get('conta')
+    senha = request.POST.get('senha')
+    if senha == Usuario.senha and conta_bancaria == Usuario.contaBancaria.numeroConta:
+        dados = Usuario.objects.all()
+        return redirect('home', dados)
+    return render(request, 'login.html')
+
+def cartao(request):
+    return render(request, 'core/cadastrocartao.html')
+
+
+def usuarios(request):
+    new_usuario = Usuario()
+    new_usuario.nome = request.POST.get('proprietario')
+    new_usuario.contaBancaria.agencia = request.POST.get('agencia')
+    new_usuario.contaBancaria.numeroConta = request.POST.get('conta')
+    new_usuario.senha = request.POST.get('senha')
+    new_usuario.save()
+    usuario = {
+        'usuario': Usuario.objects.all()
+    }
+
+    return render(request, 'login.html', usuario)
+    
+
 """ @login_required
 def cadastro_usuario(request):
     if request.user.is_staff:

@@ -1,6 +1,7 @@
 from django.db import models
 import math
-
+from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
+from django.contrib.auth.backends import BaseBackend
 # Create your models here.
 
 class Cartao(models.Model):
@@ -12,23 +13,25 @@ class Cartao(models.Model):
         verbose_name_plural='Cartões'
     def __str__(self):
         return f"{self.numeroCartao} ({self.nomeTitular})"
+    
 
 class ContaBancaria(models.Model):
-    numeroConta = models.CharField(max_length=6, verbose_name='ContaBancaria')
-    titular = models.CharField(max_length=45, verbose_name='ContaBancaria')
-    agencia = models.IntegerField(verbose_name='Agencia')
+    numeroConta = models.CharField(max_length=6, verbose_name='Número da Conta', unique=True)
+    titular = models.CharField(max_length=45, verbose_name='Titular')
+    agencia = models.IntegerField(verbose_name='Agência')
     banco = models.CharField(max_length=100, verbose_name='Banco')
-    cartao = models.ForeignKey(Cartao, on_delete = models.CASCADE, verbose_name='Cartao')
+    cartao = models.ForeignKey('Cartao', on_delete=models.SET_NULL, null=True, blank=True, verbose_name='Cartão')
+    senha = models.CharField(max_length=100, verbose_name='Senha', null=True, blank=True)
+
     class Meta:
-        verbose_name_plural='ContasBancarias'
+        verbose_name_plural = 'Contas Bancárias'
 
     def __str__(self):
-        return self.nome
+        return self.numeroConta
 
 class Usuario(models.Model):
+    id_usuario = models.AutoField(primary_key=True)
     nome = models.CharField(max_length=100, verbose_name='Nome')
-    email = models.EmailField(verbose_name='E-mail')
-    telefone = models.CharField(max_length=20, blank=True, null=True, verbose_name='Telefone')
     foto = models.ImageField(upload_to='foto_cliente',blank=True, null=True, verbose_name='Foto')
     senha = models.CharField(max_length=100, verbose_name='Senha')
     contaBancaria = models.ForeignKey(ContaBancaria, on_delete = models.CASCADE, verbose_name='Conta bancária')
