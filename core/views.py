@@ -5,6 +5,7 @@ from django.views import generic
 from django.urls import reverse_lazy
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
+from core.forms import FormContaBancaria, FormCartao
 
 # Create your views here.
 
@@ -17,36 +18,42 @@ class Registrar(generic.CreateView):
     success_url = reverse_lazy('url_principal')
     template_name = 'registration/registrar.html'
 
-def cadastro(request):
-    return render(request, 'cadastro.html')
+def cadastro_contaBancaria(request):
+    form = FormContaBancaria(request.POST, request.FILES or None)
+    if form.is_valid():
+        form.save()
+        return redirect('url_cadastro_cartao')
+    contexto = {'form': form, 'bancaria': 'Cadastro com sua conta bancária', 'formulario':True}
+    return render(request, 'cadastro.html', contexto)
+
+def cadastro_cartao(request):
+    form = FormCartao(request.POST or None, request.FILES or None)
+    if form.is_valid():
+            form.save()
+            return redirect('url_login')
+    contexto = {'form': form, 'cartao': 'Cadastre seu cartão', 'formulario':False}
+    return render(request, 'core/cadastro_cartao.html', contexto)
 
 def login(request):
-    return render(request, 'login.html')
+    obj = ContaBancaria.objects.get()
+    if request.method == 'POST':
+        obj.numeroConta = request.POST['conta']
+        obj.senha = request.POST['senha']
+        return redirect('url_home')
+    return render(request, 'core/login.html')
 
-def login_validation(request):
+def home(request): 
+     return render(request, 'core/home.html')
+
+
+""" def login_validation(request):
     conta_bancaria = request.POST.get('conta')
     senha = request.POST.get('senha')
     if senha == Usuario.senha and conta_bancaria == Usuario.contaBancaria.numeroConta:
         dados = Usuario.objects.all()
         return redirect('home', dados)
-    return render(request, 'login.html')
+    return render(request, 'login.html') """
 
-def cartao(request):
-    return render(request, 'core/cadastrocartao.html')
-
-
-def usuarios(request):
-    new_usuario = Usuario()
-    new_usuario.nome = request.POST.get('proprietario')
-    new_usuario.contaBancaria.agencia = request.POST.get('agencia')
-    new_usuario.contaBancaria.numeroConta = request.POST.get('conta')
-    new_usuario.senha = request.POST.get('senha')
-    new_usuario.save()
-    usuario = {
-        'usuario': Usuario.objects.all()
-    }
-
-    return render(request, 'login.html', usuario)
     
 
 """ @login_required
@@ -59,8 +66,11 @@ def cadastro_usuario(request):
             return redirect('url_listagem_cliente')
         contexto = {'form': form, 'txt_title':'cad_cli','txt_descricao':'cadastro de cliente','txt_button':'Cadastrar'}
         return render(request, 'core/cadastro.html', contexto)
-    return render(request, 'core/mensagem.html')
+    return render(request, 'core/mensagem.html') """
 
+
+
+""" 
 @login_required
 def listagem_cliente(request):
     if request.user.is_staff:

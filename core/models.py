@@ -1,7 +1,5 @@
 from django.db import models
 import math
-from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
-from django.contrib.auth.backends import BaseBackend
 # Create your models here.
 
 class Cartao(models.Model):
@@ -16,10 +14,9 @@ class Cartao(models.Model):
     
 
 class ContaBancaria(models.Model):
-    numeroConta = models.CharField(max_length=6, verbose_name='Número da Conta', unique=True)
-    titular = models.CharField(max_length=45, verbose_name='Titular')
+    proprietario = models.CharField(max_length=45, verbose_name='Proprietário')
     agencia = models.IntegerField(verbose_name='Agência')
-    banco = models.CharField(max_length=100, verbose_name='Banco')
+    conta = models.CharField(max_length=100, verbose_name='Número da Conta')
     cartao = models.ForeignKey('Cartao', on_delete=models.SET_NULL, null=True, blank=True, verbose_name='Cartão')
     senha = models.CharField(max_length=100, verbose_name='Senha', null=True, blank=True)
 
@@ -27,7 +24,7 @@ class ContaBancaria(models.Model):
         verbose_name_plural = 'Contas Bancárias'
 
     def __str__(self):
-        return self.numeroConta
+        return self.conta
 
 class Usuario(models.Model):
     id_usuario = models.AutoField(primary_key=True)

@@ -11,32 +11,17 @@
 
 {%block main %}
     <div class="main-container">
-        <form action="{% url 'login_validation' %}" method="post" class="form">
-            {% csrf_token %}
-            <h1>Cadastro com sua conta bancária</h1>
-            <div class="form-content">
-                <span>
-                    <label for="">Proprietário</label>
-                    <input name="proprietario" type="text" placeholder="Proprietário da conta">
-                </span>
-                <span class="banco">
-                    <div class="agencia">
-                        <label for="">Agência</label>
-                        <input name="agencia" type="text" class="banco-input">
-                    </div>
-                    <div class="conta">
-                        <label for="">Conta</label>
-                        <input name="conta" type="text" class="banco-input">
-                    </div>
-                </span>
-                <span>
-                    <label for="">Senha</label>
-                    <input name="senha" type="password">
-                </span>
-            </div>
-            <div class="avancar">
-                <button onclick="window.location.href='/cadastrocartao/'">Avançar</button>
-            </div>
+        <form action="{% url 'cadastro' %}" method="post" class="form">
+         
+                {% csrf_token %}
+                <h1>{{ bancaria }}</h1>
+                <div class="form-content">
+                    {{ form.as_p }}
+                </div>
+  
+                <div class="avancar">
+                    <button type="submit">Avançar</button>
+                </div>
         </form>
     </div>
 {% endblock %}

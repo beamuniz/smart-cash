@@ -10,13 +10,13 @@ class Usuario(ModelForm):
         fields ='__all__'
 
 
-class ContaBancaria(ModelForm):
+class FormContaBancaria(ModelForm):
     class Meta:
         model = ContaBancaria
-        fields ='__all__'
+        fields = 'proprietario', 'agencia', 'conta', 'senha'
 
 
-class Cartao(ModelForm):
+class FormCartao(ModelForm):
     class Meta:
         model = Cartao
         fields ='__all__'

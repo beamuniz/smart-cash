@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    Login
+{% endblock %}
+
+{% block extrahead %}
+<link rel="stylesheet" href="{% static 'css/cadastro.css' %}">
+{% endblock %}
+
+{%block main %}
+    <div class="main-container">
+        <form method="post" class="form">
+         
+                {% csrf_token %}
+                <h1>{{ cartao }}</h1>
+                <div class="form-content">
+                    {{ form.as_p }}
+                </div>
+  
+                <div class="avancar">
+                    <button type="submit">Avançar</button>
+                </div>
+        </form>
+    </div>
+{% endblock %}

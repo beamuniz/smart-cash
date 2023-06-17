@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from core.views import apresentacao, login, cadastro, cartao, login_validation
+from core.views import apresentacao, login, cadastro_contaBancaria, cadastro_cartao, home
 from django.conf.urls.static import static
 from django.conf import settings
 """ from core.views import home, cadastro_cliente, listagem_cliente, cadastro_veiculo, cadastro_fabricante, listagem_veiculo,\
@@ -27,10 +27,10 @@ from django.conf import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', apresentacao, name='Tela Inicial'),
-    path('cadastro/', cadastro, name='cadastro'),
-    path('login/', login, name='Login'),
-    path('cadastro-cartao/', cartao, name='cadastro_cartao'),
-    path('home/', login_validation, name='login_validation')
+    path('', apresentacao, name='url_tela_inicial'),
+    path('cadastro/', cadastro_contaBancaria, name='cadastro'),
+    path('login/', login, name='url_login'),
+    path('cadastro_cartao/', cadastro_cartao, name='url_cadastro_cartao'),
+    path('home/', home, name='url_home'),
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
