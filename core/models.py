@@ -31,7 +31,7 @@ class Usuario(models.Model):
     nome = models.CharField(max_length=100, verbose_name='Nome')
     foto = models.ImageField(upload_to='foto_cliente',blank=True, null=True, verbose_name='Foto')
     senha = models.CharField(max_length=100, verbose_name='Senha')
-    contaBancaria = models.ForeignKey(ContaBancaria, on_delete = models.CASCADE, verbose_name='Conta bancária')
+    contaBancaria = models.ForeignKey(ContaBancaria, on_delete = models.CASCADE, verbose_name='Número da Conta')
     class Meta:
         verbose_name_plural='Usuários'
     def __str__(self):

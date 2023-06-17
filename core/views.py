@@ -6,6 +6,7 @@ from django.urls import reverse_lazy
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
 from core.forms import FormContaBancaria, FormCartao
+from django.contrib.auth import authenticate, login
 
 # Create your views here.
 
@@ -35,12 +36,18 @@ def cadastro_cartao(request):
     return render(request, 'core/cadastro_cartao.html', contexto)
 
 def login(request):
-    obj = ContaBancaria.objects.get()
     if request.method == 'POST':
-        obj.numeroConta = request.POST['conta']
-        obj.senha = request.POST['senha']
-        return redirect('url_home')
-    return render(request, 'core/login.html')
+        conta = request.POST['conta']
+        senha = request.POST['senha']
+        try:
+            user = ContaBancaria.objects.get(conta=conta, senha=senha)
+            if conta == user.conta and senha == user.senha:
+                return redirect('url_home')  # Redirecionar para a página inicial após o login
+        except ContaBancaria.DoesNotExist:
+            error_message = 'Nome de usuário ou senha inválidos.'
+            return render(request, 'login.html', {'error_message': error_message})
+    return render(request, 'login.html')
+
 
 def home(request): 
      return render(request, 'core/home.html')

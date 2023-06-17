@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+Login
+{% endblock %}
+
+{% block extrahead %}
+<link rel="stylesheet" href="{% static 'css/login.css' %}">
+{% endblock %}
+
+{%block main %}
+<div class="main-container">
+    <form class="content-container" action="{% url 'url_login' %}" method="post">
+        {% csrf_token %}
+        <h1>Login</h1>
+        {% if error_message %}
+        <div>{{ error_message }}</div>
+        {% endif %}
+        <div class="form">
+            <span>
+                <label for="">Número da Conta</label>
+                <input name="conta" type="text" placeholder="">
+            </span>
+            <span>
+                <label for="">Senha</label>
+                <input name="senha" type="password">
+            </span>
+        </div>
+        <div class="entrar">
+            <button type="submit">Entrar</button>
+            <p>Não possui uma conta ainda? <a href="/cadastro/">Cadastre-se</a></p>
+        </div>
+    </form>
+</div>
+{% endblock %}
