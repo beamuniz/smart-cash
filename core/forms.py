@@ -3,7 +3,7 @@ from django.forms import ModelForm
 from captcha.fields import CaptchaField
 
 
-class Usuario(ModelForm):
+class UsuarioForm(ModelForm):
     captcha = CaptchaField()
     class Meta:
         model = Usuario

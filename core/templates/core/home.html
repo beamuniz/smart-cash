@@ -16,7 +16,7 @@ Home
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <title>Bootstrap 4 Template with Sidebar Menu</title>
+    <title>Smart-Cash</title>
 
     <!-- CSS -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500&display=swap">
@@ -61,36 +61,30 @@ Home
 
             <ul class="list-unstyled menu-elements">
                 <li class="active">
-                    <a class="scroll-link" href="#top-content"><i class="fas fa-home"></i> Home</a>
+                    <a class="navbar" onclick="window.location.href='/home/'"><i class="fas fa-home"></i> Home</a>
                 </li>
                 <li>
-                    <a class="scroll-link" href="#section-1"><i class="fas fa-cog"></i> Conta Bancária</a>
+                    <a class="navbar" onclick="window.location.href='/conta_bancaria/'"><i class="fas fa-cog"></i> Conta Bancária</a>
                 </li>
                 <li>
-                    <a class="scroll-link" href="#section-2"><i class="fas fa-user"></i> Gráficos de gastos</a>
+                    <a class="navbar" onclick="window.location.href='/grafico_gastos/'"><i class="fas fa-user"></i> Gráficos de gastos</a>
                 </li>
                 <li>
-                    <a class="scroll-link" href="#section-5"><i class="fas fa-pencil-alt"></i> Relatórios</a>
+                    <a class="navbar" onclick="window.location.href='/relatorios/'"><i class="fas fa-pencil-alt"></i> Relatórios</a>
                 </li>
                 <li>
-                    <a class="scroll-link" href="#section-6"><i class="fas fa-envelope"></i> Pagamentos</a>
+                    <a class="navbar" onclick="window.location.href='/pagamentos/'"><i class="fas fa-envelope"></i> Pagamentos</a>
                 </li>
-                <li>
-                    <a href="#otherSections" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"
-                        role="button" aria-controls="otherSections">
-                        <i class="fas fa-sync"></i>Other sections
-                    </a>
-                    <ul class="collapse list-unstyled" id="otherSections">
-                        <li>
-                            <a class="scroll-link" href="#section-3">Our projects</a>
-                        </li>
-                        <li>
-                            <a class="scroll-link" href="#section-4">We think that...</a>
-                        </li>
-                    </ul>
-                </li>
-            </ul>
 
+            </ul>
+            <div class="perfil">
+                <div class="perfil-visualizer">
+                    <a class="scroll-link ml-1" href="{% url 'url_perfil' dados.nome }"><img src="https://cdn-icons-png.flaticon.com/512/219/219986.png" alt="">
+                        <span>{{ pessoa }}</span>
+                    </a>
+                </div>
+                <a onclick="window.location.href='/'">Logout</a>
+            </div>
         </nav>
         <!-- End sidebar -->
 

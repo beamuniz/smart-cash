@@ -1,3 +1,4 @@
+
 from django.shortcuts import render, redirect
 from core.models import Usuario, Cartao, Despesas, Relatorio, ContaBancaria, Notificacao
 from django.contrib.auth.decorators import login_required
@@ -5,7 +6,7 @@ from django.views import generic
 from django.urls import reverse_lazy
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
-from core.forms import FormContaBancaria, FormCartao
+from core.forms import FormContaBancaria, FormCartao, UsuarioForm
 from django.contrib.auth import authenticate, login
 
 # Create your views here.
@@ -42,15 +43,46 @@ def login(request):
         try:
             user = ContaBancaria.objects.get(conta=conta, senha=senha)
             if conta == user.conta and senha == user.senha:
-                return redirect('url_home')  # Redirecionar para a página inicial após o login
+                context = {'pessoa': user.proprietario}
+                return render(request, 'core/home.html', context)  # Redirecionar para a página inicial após o login
         except ContaBancaria.DoesNotExist:
             error_message = 'Nome de usuário ou senha inválidos.'
             return render(request, 'login.html', {'error_message': error_message})
     return render(request, 'login.html')
 
+def perfil(request, pessoa):
+    usuario = Usuario.objects.get(nome=pessoa)
+    contexto = {'nome': usuario.nome, 'foto': usuario.foto}
+    return render(request, 'core/perfil.html', contexto)
+
+def editar_perfil(request):
+    usuario = request.user  # Obtém o objeto de usuário atualmente autenticado
+    if request.method == 'POST':
+        form = UsuarioForm(request.POST, request.FILES, instance=usuario)
+        if form.is_valid():
+            form.save()
+            return redirect('perfil')  # Redireciona para a página de perfil do usuário após salvar os dados
+    else:
+        form = UsuarioForm(instance=usuario)
+    return render(request, 'editar_usuario.html', {'form': form})
+
+def conta_bancaria(request):
+    return render(request, '')
+
+def pagamentos(request):
+    return render(request, '')
+
+def logout_view(request):
+    return render(request, 'core/apresentacao.html')
 
 def home(request): 
      return render(request, 'core/home.html')
+
+def grafico_gastos(request):
+    return render(request, 'core/grafico_gastos.html')
+
+def relatorios(request): 
+    return render(request, 'core/relatorios.html')
 
 
 """ def login_validation(request):

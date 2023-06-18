@@ -24,18 +24,24 @@ class ContaBancaria(models.Model):
         verbose_name_plural = 'Contas Bancárias'
 
     def __str__(self):
-        return self.conta
+        return self.conta, self.proprietario
 
 class Usuario(models.Model):
     id_usuario = models.AutoField(primary_key=True)
-    nome = models.CharField(max_length=100, verbose_name='Nome')
+    nome = models.CharField(max_length=45, null=True, blank=True, verbose_name='Nome')
     foto = models.ImageField(upload_to='foto_cliente',blank=True, null=True, verbose_name='Foto')
     senha = models.CharField(max_length=100, verbose_name='Senha')
     contaBancaria = models.ForeignKey(ContaBancaria, on_delete = models.CASCADE, verbose_name='Número da Conta')
     class Meta:
         verbose_name_plural='Usuários'
+
+    def save(self, *args, **kwargs):
+        if not self.nome: 
+            self.nome = self.contaBancaria.proprietario
+        super().save(*args, **kwargs)
+
     def __str__(self):
-        return self.nome
+        return self.nome if self.nome else str(self.id_usuario)
 
 class FormaPagamento(models.Model):
     tipo = models.CharField(max_length=20, blank=False, null=False, verbose_name='Tipo de pagamento')
