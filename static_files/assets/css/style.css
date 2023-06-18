@@ -93,6 +93,7 @@ img {
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
+	position: fixed;
 	left: -255px;
 	z-index: 999;
 	background: #262A64;

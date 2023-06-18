@@ -1,0 +1,27 @@
+.perfil {
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 100px;
+}
+
+.perfil span {
+    font-size: 100px;
+    color: white;
+}
+
+.perfil button {
+    width: 80vw;
+    height: 100px;
+    outline: none;
+    border: none;
+    font-size: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    border-radius: 20px;
+}

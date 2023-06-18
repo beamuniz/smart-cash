@@ -1,16 +1,15 @@
 
 from django.shortcuts import render, redirect
-from core.models import Usuario, Cartao, Despesas, Relatorio, ContaBancaria, Notificacao
+from core.models import FormaPagamento, Usuario, Cartao, Despesas, Relatorio, ContaBancaria, Notificacao
 from django.contrib.auth.decorators import login_required
 from django.views import generic
-from django.urls import reverse_lazy
+from django.urls import reverse, reverse_lazy
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
-from core.forms import FormContaBancaria, FormCartao, UsuarioForm
+from core.forms import FormContaBancaria, FormCartao, FormUsuario, FormDespesas
 from django.contrib.auth import authenticate, login
 
 # Create your views here.
-
 
 def apresentacao(request):
     return render(request,'core/apresentacao.html')
@@ -41,36 +40,42 @@ def login(request):
         conta = request.POST['conta']
         senha = request.POST['senha']
         try:
-            user = ContaBancaria.objects.get(conta=conta, senha=senha)
+            user = Usuario.objects.get(conta=conta, senha=senha)
             if conta == user.conta and senha == user.senha:
-                context = {'pessoa': user.proprietario}
+                context = {'pessoa': user.nome}
                 return render(request, 'core/home.html', context)  # Redirecionar para a página inicial após o login
-        except ContaBancaria.DoesNotExist:
-            error_message = 'Nome de usuário ou senha inválidos.'
+        except Usuario.DoesNotExist:
+            error_message = 'Número da conta ou senha inválidos.'
             return render(request, 'login.html', {'error_message': error_message})
     return render(request, 'login.html')
 
-def perfil(request, pessoa):
-    usuario = Usuario.objects.get(nome=pessoa)
-    contexto = {'nome': usuario.nome, 'foto': usuario.foto}
-    return render(request, 'core/perfil.html', contexto)
+def perfil(request, pessoa):  
+    try:
+        user = Usuario.objects.get(nome=pessoa)
+        contexto = {'dados': user}
+        return  render(request, 'core/perfil.html', contexto)
+    except ContaBancaria.DoesNotExist:
+        error_message = 'Usuário não encontrado.'
+        return render(request, 'core/mensagem.html', {'error_message': error_message})
 
-def editar_perfil(request):
-    usuario = request.user  # Obtém o objeto de usuário atualmente autenticado
+def editar_perfil(request, id):
+    user = Usuario.objects.get(id_usuario=id)
     if request.method == 'POST':
-        form = UsuarioForm(request.POST, request.FILES, instance=usuario)
+        form = FormUsuario(request.POST, request.FILES, instance=user)
         if form.is_valid():
             form.save()
-            return redirect('perfil')  # Redireciona para a página de perfil do usuário após salvar os dados
+            return redirect('url_perfil', pessoa=user.nome)  # Redirecionar para a página de perfil atualizada
     else:
-        form = UsuarioForm(instance=usuario)
-    return render(request, 'editar_usuario.html', {'form': form})
+        form = FormUsuario(instance=user)
+    
+    contexto = {'form': form}
+    return render(request, 'core/editar_perfil.html', contexto)
 
 def conta_bancaria(request):
     return render(request, '')
 
 def pagamentos(request):
-    return render(request, '')
+    return render(request, 'core/pagamentos.html')
 
 def logout_view(request):
     return render(request, 'core/apresentacao.html')
@@ -81,9 +86,34 @@ def home(request):
 def grafico_gastos(request):
     return render(request, 'core/grafico_gastos.html')
 
-def relatorios(request): 
-    return render(request, 'core/relatorios.html')
+def relatorios(request):
+        dados = Relatorio.objects.all()
+        contexto = {'dados': dados}
+        return render(request, 'core/relatorios.html', contexto)
 
+def cadastro_despesa(request):
+    form = FormDespesas(request.POST or None, request.FILES or None)
+    if form.is_valid():
+        form.save()
+        return redirect('url_pagamentos')
+    contexto = {'form': form}
+    return render(request, 'core/cadastro_despesa.html', contexto)
+
+def realizando_pagamento(request, id):
+    obj = Usuario.objects.get(id_usuario=id)
+    contexto = {'dados': obj}
+    return render(request, 'core/realizando_pagamento.html')
+
+def remover_contaBancaria(request, id_conta):
+        conta = ContaBancaria.objects.get(id=id_conta)
+        if request.method == 'POST':
+            confirmacao = request.POST.get('confirmacao')
+            if confirmacao == 'Sim':
+                conta.delete()
+                return redirect('core/apresentacao.html')
+            else:
+                return redirect('core/conta_bancaria.html')
+        return render(request, 'confirmar_remocao_conta.html', {'conta': conta})
 
 """ def login_validation(request):
     conta_bancaria = request.POST.get('conta')

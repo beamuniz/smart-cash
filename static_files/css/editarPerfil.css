@@ -1,22 +1,28 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;800&display=swap');
-
-
 .main-container {
     height: 100vh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 100px;
+}
+
+.main-container h1{
+    width: 700px;
+    text-align: start;
+    font-size: 100px;
+    color: white;
+}
+
+.form {
+    width: 80%;
+    height: 70%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    font-family: 'Inter';
-}
-
-.content-container{
-    width: 100%;
-    height: 70%;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
+    gap: 100px;
 }
 
 h1 {
@@ -26,7 +32,7 @@ h1 {
     font-size: 100px;
 }
 
-.form {
+.form-content {
     width: 80%;
     display: flex;
     flex-direction: column;
@@ -35,12 +41,8 @@ h1 {
     color: white;
 }
 
-.form, span {
-    display: flex;
-    flex-direction: column;
-}
-
 input {
+    width: 100%;
     outline: none;
     background-color: inherit;
     border: white solid 2px;
@@ -50,7 +52,24 @@ input {
     color: white;
 }
 
-.entrar {
+.banco {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.banco-input {
+    width: 100%;
+}
+
+.agencia, .conta {
+    width: 40%;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+}
+
+.avancar {
     width: 80%;
     display: flex;
     flex-direction: column;
@@ -67,23 +86,4 @@ button {
     border-radius: 20px;
     color: black;
     font-weight: bold;
-}
-
-p {
-    font-size: 35px;
-    color: white;
-}
-
-a {
-    color: black;
-    font-weight: bold;
-}
-
-.error-message {
-    background-color: #ffcccc;
-    color: #ff0000;
-    padding: 10px;
-    margin-bottom: 10px;
-    border: 1px solid #ff0000;
-    border-radius: 5px;
 }

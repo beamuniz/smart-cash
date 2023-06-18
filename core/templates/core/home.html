@@ -43,9 +43,20 @@ Home
 </head>
 
 <body>
-
+    
     <!-- Wrapper -->
     <div class="wrapper">
+
+         <!-- open sidebar menu -->
+         <a class="btn btn-primary btn-customized open-menu" href="#" role="button">
+            <i class="fas fa-align-left"></i>
+        </a>
+
+        <h1 class="text-white mt-5">Pagamentos Pendentes</h1>
+
+        
+
+        <button type="button" class="btn btn-light d-flex flex-row justify-content-end" onclick="window.location.href='/cadastro_despesa/'">Cadastrar Despesa</button>
 
         <!-- Sidebar -->
         <nav class="sidebar">
@@ -58,6 +69,8 @@ Home
             <div class="logo">
                 
             </div>
+
+            
 
             <ul class="list-unstyled menu-elements">
                 <li class="active">
@@ -79,9 +92,9 @@ Home
             </ul>
             <div class="perfil">
                 <div class="perfil-visualizer">
-                    <a class="scroll-link ml-1" href="{% url 'url_perfil' dados.nome }"><img src="https://cdn-icons-png.flaticon.com/512/219/219986.png" alt="">
+                    <a href="{% url 'url_perfil' pessoa %}"><img src="https://cdn-icons-png.flaticon.com/512/219/219986.png" alt="">
                         <span>{{ pessoa }}</span>
-                    </a>
+                    </a>                    
                 </div>
                 <a onclick="window.location.href='/'">Logout</a>
             </div>
@@ -93,11 +106,6 @@ Home
 
         <!-- Content -->
         <div class="content">
-
-            <!-- open sidebar menu -->
-            <a class="btn btn-primary btn-customized open-menu" href="#" role="button">
-                <i class="fas fa-align-left"></i>
-            </a>
 
 
         </div>

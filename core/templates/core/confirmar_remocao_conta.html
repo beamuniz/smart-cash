@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Confirmar Remoção de Conta
+{% endblock %}
+
+{% block content %}
+    <h1>Confirmar Remoção de Conta</h1>
+    <p>Você tem certeza de que deseja remover a conta de {{ ContaBancaria.proprietario }}?</p>
+    <form method="post">
+        {% csrf_token %}
+        <input type="submit" name="confirmacao" value="Sim">
+        <input type="submit" name="confirmacao" value="Não">
+    </form>
+{% endblock %}

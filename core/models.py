@@ -23,30 +23,42 @@ class ContaBancaria(models.Model):
     class Meta:
         verbose_name_plural = 'Contas Bancárias'
 
+    def save(self, *args, **kwargs):
+        created = False
+        if not self.pk:
+            created = True
+
+        super().save(*args, **kwargs)
+
+        if created:
+            usuario, created = Usuario.objects.get_or_create(contaBancaria=self)
+        
+        usuario.nome = self.proprietario
+        usuario.senha = self.senha
+        usuario.conta = self.conta
+        usuario.save()
+
     def __str__(self):
-        return self.conta, self.proprietario
+        return f"{self.conta}, {self.proprietario}"
 
 class Usuario(models.Model):
     id_usuario = models.AutoField(primary_key=True)
     nome = models.CharField(max_length=45, null=True, blank=True, verbose_name='Nome')
     foto = models.ImageField(upload_to='foto_cliente',blank=True, null=True, verbose_name='Foto')
     senha = models.CharField(max_length=100, verbose_name='Senha')
-    contaBancaria = models.ForeignKey(ContaBancaria, on_delete = models.CASCADE, verbose_name='Número da Conta')
+    conta = models.CharField(max_length=100, null=True, blank=True, verbose_name='Número da Conta')
+    contaBancaria = models.ForeignKey(ContaBancaria, on_delete = models.CASCADE, blank=True, null=True, verbose_name='Número da Conta')
     class Meta:
         verbose_name_plural='Usuários'
-
-    def save(self, *args, **kwargs):
-        if not self.nome: 
-            self.nome = self.contaBancaria.proprietario
-        super().save(*args, **kwargs)
 
     def __str__(self):
         return self.nome if self.nome else str(self.id_usuario)
 
 class FormaPagamento(models.Model):
-    tipo = models.CharField(max_length=20, blank=False, null=False, verbose_name='Tipo de pagamento')
+    tipo = models.CharField(max_length=20, blank=True, null=True, verbose_name='Tipo de pagamento')
     id = models.IntegerField(verbose_name='Id pagamento', primary_key = True, null=False)
-
+   
+    
 
 class Notificacao(models.Model):
     mensagem = models.CharField(max_length=100, verbose_name='Mensagem')
@@ -61,6 +73,7 @@ class Notificacao(models.Model):
         return f'{self.mensagem}:{self.notificacoesAtivas}'    
 
 class Despesas(models.Model):
+    nome = models.CharField(max_length=100, blank=True, null=True, verbose_name='Titulo da Despesa')
     valor = models.DecimalField(max_digits=10, decimal_places=2, verbose_name='Valor')
     status = models.BooleanField(verbose_name='Status')
     categoria = models.CharField(max_length=100, verbose_name='Categoria')
@@ -69,9 +82,11 @@ class Despesas(models.Model):
     pagamento = models.ForeignKey(FormaPagamento, on_delete = models.CASCADE, verbose_name='FormaPagamento')
     notificacaoDespesas = models.ForeignKey(Notificacao, on_delete = models.CASCADE, verbose_name='Notificacao')
     class Meta:
-        verbose_name_plural = "Despesas"
+        verbose_name_plural = 'Despesas'
+
     def __str__(self):
-        return f'{self.id_veiculo}:{self.id_tabela}'
+        return str(self.nome)
+
 
 class Relatorio(models.Model):
     nomeItens = models.ForeignKey(Despesas, max_length=100, on_delete=models.CASCADE, verbose_name='Título da conta')
@@ -81,19 +96,5 @@ class Relatorio(models.Model):
         verbose_name_plural = 'Relatorios'
 
     def __str__(self):
-        return f"{self.nomeItens} = {self.descricao}"
+        return self.geracaoRelatorio
 
-
-"""
-    def calcula_total(self):
-        obj = TabelaPreco.objects.get(id=self.id_tabela.pk)
-        if self.data_hora_saida:
-            horas = math.ceil((self.data_hora_saida - self.data_hora_entrada).total_seconds() / 3600)
-            if ((self.data_hora_saida - self.data_hora_entrada).total_seconds() / 3600) <= 0.5:
-                self.total = (horas * obj.valor) / 2
-                return self.total
-            else:
-                self.total = horas * obj.valor
-                return self.total
-        return 0.0
-"""    

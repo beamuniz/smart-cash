@@ -3,11 +3,10 @@ from django.forms import ModelForm
 from captcha.fields import CaptchaField
 
 
-class UsuarioForm(ModelForm):
-    captcha = CaptchaField()
+class FormUsuario(ModelForm):
     class Meta:
         model = Usuario
-        fields ='__all__'
+        fields = 'nome', 'foto'
 
 
 class FormContaBancaria(ModelForm):
@@ -27,10 +26,10 @@ class Relatorio(ModelForm):
         model = Relatorio
         fields ='__all__'
 
-class Despesas(ModelForm):
+class FormDespesas(ModelForm):
     class Meta:
         model = Despesas
-        fields = '__all__'
+        fields = 'nome', 'valor', 'categoria', 'dataPagamento', 'dataVencimento', 'pagamento'
 
 class Notificacao(ModelForm):
     class Meta:

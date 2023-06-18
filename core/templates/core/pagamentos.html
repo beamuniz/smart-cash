@@ -11,4 +11,18 @@
 
 {%block main %}
 
+<h1 class="text-white">Pagamentos Pendentes</h1>
+
+<div class="row pl-3">
+    <ul>
+    {% for pagamento in pagamentos %}
+        <li class="pagamentos">
+            <a href=" {% url 'url_realizando_pagamento' id %}">
+                {{ pagamento }}
+            </a>
+        </li>
+    </ul>   
+    {% endfor %}
+</div>
+
 {% endblock %}
