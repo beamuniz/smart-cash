@@ -17,8 +17,10 @@
     <ul>
     {% for pagamento in pagamentos %}
         <li class="pagamentos">
-            <a href=" {% url 'url_realizando_pagamento' id %}">
-                {{ pagamento }}
+            <a href="{% url 'url_realizando_pagamento' pagamento.id %}" class="pagamento">
+                {{ pagamento.nome }}
+                {{ pagamento.valor }}
+                {{ pagamento.status }}
             </a>
         </li>
     </ul>   

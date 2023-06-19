@@ -29,7 +29,7 @@ class Relatorio(ModelForm):
 class FormDespesas(ModelForm):
     class Meta:
         model = Despesas
-        fields = 'nome', 'valor', 'categoria', 'dataPagamento', 'dataVencimento', 'pagamento'
+        fields = 'nome', 'valor', 'categoria', 'dataPagamento', 'dataVencimento'
 
 class Notificacao(ModelForm):
     class Meta:

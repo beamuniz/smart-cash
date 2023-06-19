@@ -9,13 +9,13 @@
 <link rel="stylesheet" href="{% static 'css/conta_bancaria.css' %}">
 {% endblock %}
 
-{% block content %}
+{% block main %}
     <h1>Conta Bancária Cadastrada</h1>
     <div class="perfil">
         <p>Proprietário: {{ dados.proprietario }}</p>
         <p>Agência: {{ dados.agencia }}</p>
         <p>Conta: {{ dados.conta }}</p>
-        <a href="{% url 'remover_conta' dados.conta %}"><button>Remover Conta</button></a>
+        <a ><button>Remover Conta</button></a>
     </div>
 {% endblock %}
 

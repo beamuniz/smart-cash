@@ -74,10 +74,10 @@ Home
 
             <ul class="list-unstyled menu-elements">
                 <li class="active">
-                    <a class="navbar" onclick="window.location.href='/home/'"><i class="fas fa-home"></i> Home</a>
+                    <a class="navbar" href="{% url 'url_tela_inicial' %}"><i class="fas fa-home"></i> Home</a>
                 </li>
                 <li>
-                    <a class="navbar" onclick="window.location.href='/conta_bancaria/'"><i class="fas fa-cog"></i> Conta Bancária</a>
+                    <a class="navbar" href="{% url 'url_conta_bancaria' pessoa %}"><i class="fas fa-cog"></i> Conta Bancária</a>
                 </li>
                 <li>
                     <a class="navbar" onclick="window.location.href='/grafico_gastos/'"><i class="fas fa-user"></i> Gráficos de gastos</a>

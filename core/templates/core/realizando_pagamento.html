@@ -11,7 +11,7 @@
 
 {%block main %}
     <div class="main-container">
-        <h1>{ nomePagamento }</h1>
+        <h1>{{ nomePagamento }}</h1>
         <form method="post" enctype="multipart/form-data" class="form">
                 {% csrf_token %}
                 <div class="form-content">

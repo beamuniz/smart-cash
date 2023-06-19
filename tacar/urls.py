@@ -16,12 +16,12 @@ urlpatterns = [
     path('home/', home, name='url_home'),
     path('grafico_gastos/', grafico_gastos, name='url_grafico_gastos'),
     path('relatorios/', relatorios, name='url_relatorios'),
-    path('conta_bancaria/', conta_bancaria, name='url_conta_bancaria'),
+    path('conta_bancaria/<str:pessoa>', conta_bancaria, name='url_conta_bancaria'),
     path('pagamentos/', pagamentos, name='url_pagamentos'),
     path('perfil/<str:pessoa>/', perfil, name='url_perfil'),
     path('editar_perfil/<int:id>/', editar_perfil, name='url_editar_perfil'),
-    path('realizando_pagamento/<int:id>/', realizando_pagamento, name='realizando_pagamento'),
+    path('realizando_pagamento/<int:id>/', realizando_pagamento, name='url_realizando_pagamento'),
     path('cadastro_despesa/', cadastro_despesa, name='cadastro_despesa'),
-    path('conta/remover/<int:id_conta>/', remover_contaBancaria, name='remover_conta'),
+    path('conta/remover/<str:num_conta>/', remover_contaBancaria, name='confirmar_remocao_conta'),
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

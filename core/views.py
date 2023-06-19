@@ -71,11 +71,20 @@ def editar_perfil(request, id):
     contexto = {'form': form}
     return render(request, 'core/editar_perfil.html', contexto)
 
-def conta_bancaria(request):
-    return render(request, '')
+def conta_bancaria(request, pessoa):
+    try:
+        user = ContaBancaria.objects.get(proprietario=pessoa)
+        contexto = {'dados': user}
+        return  render(request, 'core/conta_bancaria.html', contexto)
+    except ContaBancaria.DoesNotExist:
+        error_message = 'Usuário não encontrado.'
+        return render(request, 'core/mensagem.html', {'error_message': error_message})
+
 
 def pagamentos(request):
-    return render(request, 'core/pagamentos.html')
+    pagamentos = Despesas.objects.all()
+    contexto = {'pagamentos': pagamentos}
+    return render(request, 'core/pagamentos.html', contexto)
 
 def logout_view(request):
     return render(request, 'core/apresentacao.html')
@@ -102,7 +111,7 @@ def cadastro_despesa(request):
 def realizando_pagamento(request, id):
     obj = Usuario.objects.get(id_usuario=id)
     contexto = {'dados': obj}
-    return render(request, 'core/realizando_pagamento.html')
+    return render(request, 'core/realizando_pagamento.html', contexto)
 
 def remover_contaBancaria(request, id_conta):
         conta = ContaBancaria.objects.get(id=id_conta)
