@@ -16,14 +16,16 @@
 <div class="row pl-3">
     <ul>
     {% for pagamento in pagamentos %}
-        <li class="pagamentos">
-            <a href="{% url 'url_realizando_pagamento' pagamento.id %}" class="pagamento">
-                {{ pagamento.nome }}
-                {{ pagamento.valor }}
-                {{ pagamento.status }}
-            </a>
-        </li>
-    </ul>   
+        {% if pagamento.nome %}
+            <li class="pagamentos">
+                <a href="{% url 'url_realizando_pagamento' pagamento.id %}" class="pagamento">
+                    {{ pagamento.nome }}
+                    {{ pagamento.valor }}
+                    {{ pagamento.status }}
+                </a>
+            </li>
+        {% endif %}
+        </ul>   
     {% endfor %}
 </div>
 

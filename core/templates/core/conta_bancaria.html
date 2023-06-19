@@ -10,12 +10,21 @@
 {% endblock %}
 
 {% block main %}
-    <h1>Conta Bancária Cadastrada</h1>
-    <div class="perfil">
-        <p>Proprietário: {{ dados.proprietario }}</p>
-        <p>Agência: {{ dados.agencia }}</p>
-        <p>Conta: {{ dados.conta }}</p>
-        <a ><button>Remover Conta</button></a>
+    <div class="main">
+        <h1>Conta Bancária Cadastrada</h1>
+       
+        <div class="container">
+            <div class="perfil">
+                <p>Proprietário: {{ dados.proprietario }}</p>
+                <p>Agência: {{ dados.agencia }}</p>
+                <p>Conta: {{ dados.conta }}</p>
+                <form action="{% url 'url_remover_conta' dados.proprietario %}" method="POST">
+                    {% csrf_token %}
+                    <button type="submit">Remover Conta</button>
+                </form>
+            </div>
+        </div>
     </div>
 {% endblock %}
+
 

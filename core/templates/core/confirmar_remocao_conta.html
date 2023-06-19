@@ -5,11 +5,14 @@
 {% endblock %}
 
 {% block content %}
-    <h1>Confirmar Remoção de Conta</h1>
-    <p>Você tem certeza de que deseja remover a conta de {{ ContaBancaria.proprietario }}?</p>
-    <form method="post">
-        {% csrf_token %}
-        <input type="submit" name="confirmacao" value="Sim">
-        <input type="submit" name="confirmacao" value="Não">
-    </form>
+    <div class="confirmacao-exclusao">
+        <h1>Confirmar Exclusão</h1>
+        <p>Tem certeza de que deseja excluir a conta bancária?</p>
+        
+        <form action="{% url 'url_confirmar_remocao_conta' dados.proprietario %}" method="POST">
+            {% csrf_token %}
+            <button type="submit">Confirmar Exclusão</button>
+        </form>
+    </div>
 {% endblock %}
+

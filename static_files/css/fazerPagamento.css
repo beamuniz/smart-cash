@@ -1,0 +1,52 @@
+.main-content {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 150px;
+}
+
+.main-content h1{
+    width: 80%;
+    text-align: start;
+    font-size: 60px;
+    color: white;
+}
+
+.main-content p{
+    width: 80%;
+    text-align: start;
+    font-size: 40px;
+    color: white;
+}
+
+.despesa {
+    width: 80%;
+    display: flex;
+    height: auto;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+    border: 1px solid white;
+    font-size: 50px;
+    padding: 10px;
+    border-radius: 20px;
+    color: white;
+    font-weight: bold;
+}
+
+button {
+    width: 80vw;
+    height: 100px;
+    outline: none;
+    border: none;
+    font-size: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    border-radius: 20px;
+}

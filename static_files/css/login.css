@@ -1,5 +1,21 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;800&display=swap');
 
+*, 
+*:after,
+*:before {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+}
+
+body {
+    min-width: 100vw;
+    min-height: 100vh;
+    background-size: cover;
+    position: relative;
+    z-index: 0;
+}
 
 .main-container {
     height: 100vh;

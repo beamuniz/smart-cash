@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    Login
+{% endblock %}
+
+{% block extrahead %}
+<link rel="stylesheet" href="{% static 'css/pagamentoRealizado.css' %}">
+{% endblock %}
+
+{%block main %}
+    <div class="main-content">
+        <div class="success-infos">
+            <img src="{% static 'pago.png' %}" alt="">
+            <h1>R$ {{ dados.valor }}</h1>
+            <h2>Pagamento realizado com sucesso!</h2>
+        </div>
+        <p>Um código de confirmaçãos será enviada para o seu email!</p>
+        <form method="post">
+            {% csrf_token %}
+            <div class="buttons">
+                <button type="submit">Voltar para home</button>
+                <button type="submit">Voltar para pagamentos</button>
+            </div>
+        </form>
+    </div>
+{% endblock %}

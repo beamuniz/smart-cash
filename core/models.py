@@ -14,6 +14,7 @@ class Cartao(models.Model):
     
 
 class ContaBancaria(models.Model):
+    id_contaBancaria = models.AutoField(primary_key=True)
     proprietario = models.CharField(max_length=45, verbose_name='Proprietário')
     agencia = models.IntegerField(verbose_name='Agência')
     conta = models.CharField(max_length=100, verbose_name='Número da Conta')
@@ -36,7 +37,13 @@ class ContaBancaria(models.Model):
         usuario.nome = self.proprietario
         usuario.senha = self.senha
         usuario.conta = self.conta
+        usuario.contaBancaria = self
         usuario.save()
+
+        if created:
+            despesas, created = Despesas.objects.get_or_create(id_despesa=self)
+        
+        despesas.id_despesa = self
 
     def __str__(self):
         return f"{self.conta}, {self.proprietario}"
@@ -47,7 +54,6 @@ class FormaPagamento(models.Model):
         verbose_name_plural = 'FormasDePagamentos'  
 
 class Usuario(models.Model):
-    id_usuario = models.AutoField(primary_key=True)
     nome = models.CharField(max_length=45, null=True, blank=True, verbose_name='Nome')
     foto = models.ImageField(upload_to='foto_cliente',blank=True, null=True, verbose_name='Foto')
     senha = models.CharField(max_length=100, verbose_name='Senha')
@@ -72,12 +78,13 @@ class Notificacao(models.Model):
         return f'{self.mensagem}:{self.notificacoesAtivas}'    
 
 class Despesas(models.Model):
+    id_despesa = models.ForeignKey(ContaBancaria, on_delete = models.CASCADE, blank=True, null=True, verbose_name='id despesa')
     nome = models.CharField(max_length=100, blank=True, null=True, verbose_name='Titulo da Despesa')
-    valor = models.DecimalField(max_digits=10, decimal_places=2, verbose_name='Valor')
+    valor = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True, verbose_name='Valor')
     status = models.BooleanField(verbose_name='Status', default=False)
-    categoria = models.CharField(max_length=100, verbose_name='Categoria')
-    dataPagamento = models.DateField(verbose_name='DataPagamento')
-    dataVencimento = models.DateField(verbose_name='DataVencimento')
+    categoria = models.CharField(max_length=100, blank=True, null=True, verbose_name='Categoria')
+    dataPagamento = models.DateField(verbose_name='DataPagamento', blank=True, null=True)
+    dataVencimento = models.DateField(verbose_name='DataVencimento', blank=True, null=True)
     pagamento = models.ForeignKey(FormaPagamento, on_delete = models.SET_NULL, blank=True, null=True,verbose_name='FormaPagamento')
     notificacaoDespesas = models.ForeignKey(Notificacao, on_delete = models.SET_NULL, blank=True, null=True,verbose_name='Notificacao')
     class Meta:

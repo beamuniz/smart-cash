@@ -34,8 +34,11 @@ h4 {
 	line-height: 26px;
 }
 
-img {
-	max-width: 100%;
+
+.foto {
+	width: 200px;
+	height: 200px;
+	border-radius: 100px;
 }
 
 .perfil {
@@ -93,7 +96,8 @@ img {
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
-	position: fixed;
+	top: 0;
+	position: absolute;
 	left: -255px;
 	z-index: 999;
 	background: #262A64;
@@ -307,6 +311,7 @@ a[aria-expanded="true"] {
 .overlay {
 	display: none;
 	position: fixed;
+	top: 0;
 	width: 100vw;
 	height: 100vh;
 	background: rgba(51, 51, 51, 0.7);
@@ -326,13 +331,61 @@ a[aria-expanded="true"] {
 .content {
 	width: 100%;
 	transition: all 0.3s;
+	position: relative;
+	z-index: 0;
+	top: 50px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	gap: 30px;
+}
+
+.vencendo-hoje {
+	width: 80%;
+	text-align: start;
+	color: white;
+	
+}
+
+.vencendo-hoje h1 {
+	color: white;
+	font-weight: 500;
+}
+
+.despesas {
+	width: 100%;
+	background: rgba( 255, 255, 255, 0.1 );
+	box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+	backdrop-filter: blur( 8px );
+	-webkit-backdrop-filter: blur( 8px );
+	border-radius: 10px;
+	border: 1px solid rgba( 255, 255, 255, 0.18 );
+	padding: 10px;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	color: white;
+}
+
+.header {
+	width: 80%;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.header h3 {
+	font-size: 20px;
+	color: white;
+	font-weight: bold;
 }
 
 .open-menu {
-	position: fixed;
+	position: relative;
 	top: 20px;
-	left: 10px;
-	z-index: 997;
+	left: -150px;
+	z-index: 10;
 	box-shadow: 3px 3px 3px rgba(51, 51, 51, 0.2);
 }
 

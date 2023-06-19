@@ -11,4 +11,6 @@ body {
     min-width: 100vw;
     min-height: 100vh;
     background-size: cover;
+    position: relative;
+    z-index: 0;
 }

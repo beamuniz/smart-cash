@@ -6,21 +6,20 @@
 {% endblock %}
 
 {% block extrahead %}
-<link rel="stylesheet" href="{% static 'css/editarPerfil.css' %}">
+<link rel="stylesheet" href="{% static 'css/fazerPagamento.css' %}">
 {% endblock %}
 
 {%block main %}
-    <div class="main-container">
-        <h1>{{ nomePagamento }}</h1>
-        <form method="post" enctype="multipart/form-data" class="form">
-                {% csrf_token %}
-                <div class="form-content">
-                    {{ form.as_p }}
-                </div>
-  
-                <div class="avancar">
-                    <button type="submit">Concluído</button>
-                </div>
+    <div class="main-content">
+        <h1>Realizar pagamento</h1>
+        <p>Confira os dados antes de efetuar o pagamento</p>
+        <div class="despesa">
+            <span>{{ dados.nome }}</span>
+            <span>R$ {{ dados.valor }}</span>
+        </div>
+        <form method="POST" action="{% url 'url_pagamento_realizado' dados.id %}">
+            {% csrf_token %}
+            <button type="submit">Pagar</button>
         </form>
     </div>
 {% endblock %}

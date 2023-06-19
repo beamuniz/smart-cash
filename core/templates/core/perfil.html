@@ -11,12 +11,12 @@
 {%block main %}
     <div class="perfil">
         {% if dados.foto %}
-            <img src="{{foto.url}}" alt="">
+            <img src="{{ dados.foto.url }}" alt="" class="foto">
         {% else %}
-            <img src="https://cdn-icons-png.flaticon.com/512/219/219986.png" alt="">
+            <img src="https://cdn-icons-png.flaticon.com/512/219/219986.png" alt="" class="foto">
         {% endif %}
         <span>{{ dados.nome }}</span>
-        <a href="{% url 'url_editar_perfil' dados.id_usuario %}"><button>Editar perfil</button></a>
+        <a href="{% url 'url_editar_perfil' dados.contaBancaria.id_contaBancaria %}"><button class="button">Editar perfil</button></a>
 
     </div>
 {% endblock %}
