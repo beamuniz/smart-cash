@@ -20,8 +20,8 @@
         <form method="post">
             {% csrf_token %}
             <div class="buttons">
-                <button type="submit">Voltar para home</button>
-                <button type="submit">Voltar para pagamentos</button>
+                <a href="{% url 'url_home' %}"> Voltar para home</a>
+                <a href="{% url 'url_pagamentos' %}"> Voltar para pagamentos</a>
             </div>
         </form>
     </div>

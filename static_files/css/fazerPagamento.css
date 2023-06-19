@@ -1,24 +1,25 @@
 .main-content {
     width: 100vw;
-    height: 100vh;
+    height: 80vh;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    gap: 150px;
+    justify-content: start;
+    gap: 50px;
 }
 
 .main-content h1{
     width: 80%;
     text-align: start;
-    font-size: 60px;
+    font-size: 30px;
     color: white;
+    font-weight: bold;
 }
 
 .main-content p{
     width: 80%;
     text-align: start;
-    font-size: 40px;
+    font-size: 20px;
     color: white;
 }
 
@@ -31,7 +32,7 @@
     justify-content: center;
     gap: 40px;
     border: 1px solid white;
-    font-size: 50px;
+    font-size: 25px;
     padding: 10px;
     border-radius: 20px;
     color: white;
@@ -40,10 +41,10 @@
 
 button {
     width: 80vw;
-    height: 100px;
+    height: 60px;
     outline: none;
     border: none;
-    font-size: 40px;
+    font-size: 20px;
     display: flex;
     align-items: center;
     justify-content: center;

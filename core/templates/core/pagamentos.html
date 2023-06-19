@@ -11,22 +11,23 @@
 
 {%block main %}
 
-<h1 class="text-white">Pagamentos Pendentes</h1>
+<div class="main-container">
+    <h1 class="text-white">Pagamentos Pendentes</h1>
 
-<div class="row pl-3">
-    <ul>
+<div class="pagamentos">
     {% for pagamento in pagamentos %}
-        {% if pagamento.nome %}
-            <li class="pagamentos">
+        {% if pagamento.status == False and pagamento.nome %}
+         
                 <a href="{% url 'url_realizando_pagamento' pagamento.id %}" class="pagamento">
-                    {{ pagamento.nome }}
-                    {{ pagamento.valor }}
-                    {{ pagamento.status }}
+                    <div class="pagamentos-content">
+                        <span>{{ pagamento.nome }}</span>
+                        <span>R$ {{ pagamento.valor }}</span>
+                    </div>
                 </a>
-            </li>
-        {% endif %}
-        </ul>   
+      
+        {% endif %}   
     {% endfor %}
+</div>
 </div>
 
 {% endblock %}

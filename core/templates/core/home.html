@@ -8,7 +8,7 @@ Home
 {% block main %}
 
             <div class="header">
-                <h3>Olá, {{ pessoa.nome }}</h3>
+                <h3>Olá, {{ request.session.usuario_nome }}</h3>
                 <a href="{% url 'url_cadastro_despesa' request.session.usuario_id %}">
                     <button type="button" class="btn btn-light d-flex flex-row justify-content-end">Cadastrar Despesa</button>
                 </a>

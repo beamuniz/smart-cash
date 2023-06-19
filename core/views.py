@@ -109,7 +109,9 @@ def cadastro_despesa(request, id_contaBancaria):
     form = FormDespesas(request.POST or None, request.FILES or None)
     if form.is_valid():
         form.save()
-        return render(request, 'core/pagamentos.html')
+        pagamentos = Despesas.objects.all()
+        contexto = {'pagamentos': pagamentos}
+        return render(request, 'core/pagamentos.html', contexto)
     contexto = {'form': form}
     return render(request, 'core/cadastro_despesa.html', contexto)
 
