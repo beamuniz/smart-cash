@@ -22,6 +22,10 @@
                     {% csrf_token %}
                     <button type="submit">Remover Conta</button>
                 </form>
+                <form action="{% url 'url_cadastro' %}" method="POST" class="adicionar-form">
+                    {% csrf_token %}
+                    <button type="submit">Adicionar Conta</button>
+                </form>
             </div>
         </div>
     </div>
